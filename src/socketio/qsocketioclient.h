@@ -7,6 +7,7 @@
 #include <QtCore/QJsonArray>
 #include <QtCore/QJsonDocument>
 #include <QtWebSockets/QWebSocket>
+#include "qsocketio_global.h"
 #include "qcallback.h"
 
 QT_BEGIN_NAMESPACE
@@ -15,7 +16,7 @@ class QNetworkAccessManager;
 class QNetworkReply;
 class QTimer;
 
-class QSocketIoClient : public QObject
+class Q_SOCKETIO_EXPORT QSocketIoClient : public QObject
 {
     Q_OBJECT
 public:
