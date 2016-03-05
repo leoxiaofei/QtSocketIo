@@ -59,6 +59,13 @@ bool QSocketIoClient::open(const QUrl &url)
     return true;
 }
 
+///leoxiaofei 2016-03-01
+bool QSocketIoClient::close()
+{
+	(void)m_pWebSocket->sendTextMessage(QStringLiteral("0::"));
+	return true;
+}
+
 void QSocketIoClient::onError(QAbstractSocket::SocketError error)
 {
     qDebug() << "Error occurred: " << error;
@@ -144,8 +151,8 @@ void QSocketIoClient::replyFinished(QNetworkReply *reply)
 
 void QSocketIoClient::handshakeSucceeded()
 {
-    QUrl url(m_requestUrl.toString() + QStringLiteral("/socket.io/1/websocket/") % m_sessionId);
-    m_pWebSocket->open(url, true);
+	QUrl url(m_requestUrl.toString() + QStringLiteral("/socket.io/1/websocket/") + m_sessionId);
+    m_pWebSocket->open(url);
 }
 
 void QSocketIoClient::ackReceived(int messageId, QJsonArray arguments)
@@ -200,6 +207,8 @@ void QSocketIoClient::parseMessage(const QString &message)
             case 0:	//disconnect
             {
                 Q_EMIT(disconnected(endpoint));
+				m_pHeartBeatTimer->stop();
+				m_pWebSocket->close();
                 break;
             }
             case 1: //connect

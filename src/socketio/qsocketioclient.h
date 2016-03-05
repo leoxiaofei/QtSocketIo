@@ -6,8 +6,7 @@
 #include <QtCore/QStringList>
 #include <QtCore/QJsonArray>
 #include <QtCore/QJsonDocument>
-#include "QtWebSockets/QWebSocket"
-#include "qsocketio_global.h"
+#include <QtWebSockets/QWebSocket>
 #include "qcallback.h"
 
 QT_BEGIN_NAMESPACE
@@ -16,7 +15,7 @@ class QNetworkAccessManager;
 class QNetworkReply;
 class QTimer;
 
-class Q_SOCKETIO_EXPORT QSocketIoClient : public QObject
+class QSocketIoClient : public QObject
 {
     Q_OBJECT
 public:
@@ -24,7 +23,7 @@ public:
     virtual ~QSocketIoClient();
 
     bool open(const QUrl &url);
-    //TODO: close() function
+	bool close();
 
     void emitMessage(const QString &message, bool value);
     void emitMessage(const QString &message, int value);
