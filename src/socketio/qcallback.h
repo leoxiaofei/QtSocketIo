@@ -12,12 +12,12 @@ public:
     QAbstractCallback() {}
     virtual ~QAbstractCallback() {}
 
-    void operator()(QJsonArray array) {
+    void operator()(const QJsonArray& array) {
         callback(array);
     }
 
 protected:
-    virtual void callback(QJsonArray array) = 0;
+    virtual void callback(const QJsonArray& array) = 0;
 };
 
 template <typename...>
@@ -157,7 +157,7 @@ public:
     ~FunctionCallback() {}
 
 protected:
-    void callback(QJsonArray array) {
+    void callback(const QJsonArray& array) {
         m_callback(array);
     }
 
