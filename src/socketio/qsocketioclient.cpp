@@ -206,10 +206,10 @@ void QSocketIoClient::parseMessage(const QString &message)
         {
             case 0:	//disconnect
             {
-                Q_EMIT(disconnected(endpoint));
 				m_pHeartBeatTimer->stop();
 				m_pWebSocket->close();
-                break;
+				Q_EMIT(disconnected(endpoint));
+				break;
             }
             case 1: //connect
             {
